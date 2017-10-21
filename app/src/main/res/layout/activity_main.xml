@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.isaacwang.wholesomeapp.MainActivity">
+    android:background="@color/colorPrimary">'
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/peopleHelpedTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" 
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="@dimen/smallish_gap"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/small_size"
+        android:text="69 people were heard today."
+        android:textStyle="italic"
+        android:layout_alignParentTop="true"/>
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/talkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_gap"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/talk_button"
+        android:text="I want to talk"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:onClick="startChat"/>
+
+    <LinearLayout
+        android:id="@+id/feedLayout"
+        android:layout_marginLeft="@dimen/medium_gap"
+        android:layout_marginRight="@dimen/medium_gap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/peopleHelpedTextView"
+        android:layout_above="@id/talkButton"></LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@drawable/feed_item_border">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/listenerImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/small_gap"/>
+
+    <TextView
+        android:id="@+id/listenerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="LISTENER"
+        android:textSize="@dimen/small_size"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text=" is talking to someone."
+        android:textSize="@dimen/small_size"
+        android:textColor="@color/textColor"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/talkerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="someone"
+        android:textSize="@dimen/small_size"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
+
+</LinearLayout>
+
+<!--
+// create the main layout
+
+        // create the text view
+        TextView textView = new TextView(context);
+        String message = " is talking to " + talker;
+        LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        tvParams.setMargins(0, SMALL_GAP, SMALL_GAP, SMALL_GAP);
+        textView.setLayoutParams(tvParams);
+        textView.setText(message);
+        textView.setTextSize(TEXT_SIZE);
+        textView.setTextColor(context.getResources().getColor(R.color.textColor));
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView listenerTextView = new TextView(context);
+        LinearLayout.LayoutParams tvParams2 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        tvParams2.setMargins(SMALL_GAP, SMALL_GAP, 0, SMALL_GAP);
+        listenerTextView.setLayoutParams(tvParams2);
+        listenerTextView.setText(listener);
+        listenerTextView.setTextSize(TEXT_SIZE);
+        listenerTextView.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+        listenerTextView.setGravity(Gravity.CENTER_VERTICAL);
+        listenerTextView.setTypeface(null, Typeface.BOLD);
+
+        TextView talkerTextView = new TextView(context);
+        LinearLayout.LayoutParams tvParams3 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        tvParams3.setMargins(0, SMALL_GAP, 0, SMALL_GAP);
+        talkerTextView.setLayoutParams(tvParams3);
+        talkerTextView.setText(talker);
+        talkerTextView.setTextSize(TEXT_SIZE);
+        talkerTextView.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+        talkerTextView.setGravity(Gravity.CENTER_VERTICAL);
+        talkerTextView.setTypeface(null, Typeface.BOLD);
+
+        // add the elements
+        layout.addView(imageView);
+        layout.addView(listenerTextView);
+        layout.addView(textView);
+
+        return layout;
+-->
