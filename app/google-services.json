@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1024466506113",
+    "firebase_url": "https://wholesome-ecf05.firebaseio.com",
+    "project_id": "wholesome-ecf05",
+    "storage_bucket": "wholesome-ecf05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024466506113:android:48c763acd0c0b3e9",
+        "android_client_info": {
+          "package_name": "com.example.isaacwang.wholesomeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024466506113-nvum4thui7rc9kscdd172ktcunv2t0m6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNKsp6pX6UwByBngBUZF8tJ58OJqt6spU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
