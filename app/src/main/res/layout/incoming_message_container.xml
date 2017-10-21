@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/small_gap">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chatterImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/small_gap"
+        android:layout_marginRight="@dimen/small_gap"
+        android:layout_gravity="center_vertical"/>
+
+    <include
+        android:id="@+id/messageView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/incoming_message"></include>
+</LinearLayout>

@@ -1,8 +1,14 @@
 package com.example.isaacwang.wholesomeapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -22,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.appBar);
+        myToolbar.setTitle(getResources().getString(R.string.app_name));
+        myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(myToolbar);
 
         feedLayout = (LinearLayout) findViewById(R.id.feedLayout);
 
@@ -29,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         FeedItem testFeedItem2 = new ConversationFeedItem("Alvin");
         FeedItem testFeedItem3 = new ConversationFeedItem("Rick");
         initializeFeed(Arrays.asList(testFeedItem1, testFeedItem2, testFeedItem3));
-//        startActivity(new Intent(this, ChatActivity.class));
 
         Network.addToFeed(testFeedItem1);
         Network.addToFeed(testFeedItem2);
@@ -58,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startChat(View v) {
-        startActivity(new Intent(this, ChatActivity.class));
+        Intent i = new Intent(this, ChatActivity.class);
+        i.putExtra("partner_name", "Jason");
+        startActivity(i);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
 }

@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/message_background">
+    android:background="@drawable/incoming_message_background">
 
     <TextView
-        android:id="@+id/textView"
-        android:maxWidth="250dp"
+        android:id="@+id/messageTextView"
+        android:maxWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_gap"
         android:text="I just messed around with SMS. Literally 10 lines of code ayyy lmaosies"
+        android:textSize="@dimen/medium_size"
         android:textColor="@color/textColor"/>
 </LinearLayout>

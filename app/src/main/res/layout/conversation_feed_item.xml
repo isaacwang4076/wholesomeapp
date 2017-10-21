@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="LISTENER"
-        android:textSize="@dimen/small_size"
+        android:textSize="@dimen/medium_size"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:gravity="center_vertical"/>
@@ -26,19 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text=" is talking to someone."
-        android:textSize="@dimen/small_size"
+        android:textSize="@dimen/medium_size"
         android:textColor="@color/textColor"
-        android:gravity="center_vertical"/>
-
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/talkerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="someone"
-        android:textSize="@dimen/small_size"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
         android:gravity="center_vertical"/>
 
 </LinearLayout>
@@ -48,14 +37,14 @@
 
         // create the text view
         TextView textView = new TextView(context);
-        String message = " is talking to " + talker;
+        String incoming_message = " is talking to " + talker;
         LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         tvParams.setMargins(0, SMALL_GAP, SMALL_GAP, SMALL_GAP);
         textView.setLayoutParams(tvParams);
-        textView.setText(message);
+        textView.setText(incoming_message);
         textView.setTextSize(TEXT_SIZE);
         textView.setTextColor(context.getResources().getColor(R.color.textColor));
         textView.setGravity(Gravity.CENTER_VERTICAL);
