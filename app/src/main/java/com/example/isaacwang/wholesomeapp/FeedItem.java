@@ -18,11 +18,12 @@ interface FeedItem {
 
 class ConversationFeedItem implements FeedItem {
 
-    private final String listener;
+    public final String listener;
 
     ConversationFeedItem(String listener) {
         this.listener = listener;
     }
+    ConversationFeedItem() {this.listener = "";}
 
     public View getView(Context context, ViewGroup rootViewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
