@@ -32,13 +32,13 @@ public class Utilities {
     }
 
     static int getProfResource(String id) {
-        if (id.equals("Gates")) {
+        if (id.toLowerCase().equals("gates")) {
             return R.drawable.gates_profile_pic;
         }
-        else if (id.equals("Eric")) {
+        else if (id.toLowerCase().equals("eric")) {
             return R.drawable.eric_profile_pic;
         }
-        else if (id.equals("Jeremy")) {
+        else if (id.toLowerCase().equals("jeremy")) {
             return R.drawable.jeremy_profile_pic;
         }
         return R.drawable.prof_pic;
