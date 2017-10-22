@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,12 +28,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChatActivity extends AppCompatActivity {
     
     private static final int TINY_GAP = 15;
     private Message chatBotGreeting;
-
 
     LinearLayout messagesLayout;
 
@@ -46,10 +48,12 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.appBar);
-        myToolbar.setTitle(getIntent().getStringExtra("partner_name"));
+        myToolbar.setTitle("Chat");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 
         messagesLayout = (LinearLayout) findViewById(R.id.messagesLayout);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
                 "In the meantime, feel free to tell me what's on your mind!",
                 getDrawable(R.drawable.cutebot));
 
-       initializeMessages(new ArrayList<Message>());
+        initializeMessages(new ArrayList<Message>());
 //
 //        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
 
@@ -118,7 +122,17 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initializeMessages(List<Message> priorMessages) {
         if (priorMessages.isEmpty()) {
-            addMessage(chatBotGreeting);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            addMessage(chatBotGreeting);
+                        }
+                    });
+                }
+            }, 3000);
         }
         for (Message msg: priorMessages) {
             addMessage(msg);

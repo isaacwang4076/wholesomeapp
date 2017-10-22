@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 peopleHelpedTextView.setText(feedLayout.getChildCount() + " people were heard today.");
+                peopleHelpedTextView.setVisibility(View.VISIBLE);
 
                 FeedItem feedItem = null;
                 if ((Long) dataSnapshot.child("type").getValue() == ConversationFeedItem.TYPE) {
@@ -130,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startChat(View v) {
         Intent i = new Intent(this, ChatActivity.class);
-        i.putExtra("partner_name", "Jason");
         i.putExtra("is_talker", true);
         startActivity(i);
 

@@ -23,5 +23,11 @@ public class StoryActivity extends AppCompatActivity {
         EditText et = (EditText) findViewById(R.id.storyEditText);
         FeedItem feedItem = new StoryFeedItem(null, et.getText().toString(), 0);
         Network.addToFeed(feedItem);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
     }
 }

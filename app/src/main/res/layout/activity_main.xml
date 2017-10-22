@@ -17,7 +17,8 @@
         android:textSize="@dimen/medium_size"
         android:text="69 people were heard today."
         android:textStyle="italic"
-        android:layout_below="@id/appBar"/>
+        android:layout_below="@id/appBar"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,7 +60,7 @@
         android:layout_below="@id/peopleHelpedTextView"
         android:layout_above="@id/buttonLayout"
         android:requiresFadingEdge="vertical"
-        android:fadingEdgeLength="@dimen/small_gap">
+        android:fadingEdgeLength="5dp">
         <LinearLayout
             android:id="@+id/feedLayout"
             android:layout_marginLeft="@dimen/medium_gap"
