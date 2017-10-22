@@ -124,6 +124,10 @@ public class Network {
             map.put("talkerId", talkerId);
             map.put("listenerId", myId);
             chatSocket.emit("confirm_talk", new JSONObject(map));
+
+            // add to feed
+            ConversationFeedItem conversationFeedItem = new ConversationFeedItem(myId);
+            addToFeed(conversationFeedItem);
         }
     }
 
