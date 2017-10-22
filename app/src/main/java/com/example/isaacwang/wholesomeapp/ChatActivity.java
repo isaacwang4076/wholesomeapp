@@ -110,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
                             }
                             if (talkerId.equals("talkerId")) {
                                 System.out.println("talkerId: " + talkerId);
-                                Bitmap profPic = Utilities.getProfPic(context, talkerId);
+                                Bitmap profPic = Utilities.getProfPic(context, listenerId);
                                 showTalkRequestDialog(listenerId, profPic);
                             }
                         }
