@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -34,7 +35,6 @@ import java.util.TimerTask;
 public class ChatActivity extends AppCompatActivity {
     
     private static final int TINY_GAP = 15;
-    private Message chatBotGreeting;
 
     LinearLayout messagesLayout;
 
@@ -70,21 +70,6 @@ public class ChatActivity extends AppCompatActivity {
         );
         outgoingMessageParams.gravity = Gravity.RIGHT;
         outgoingMessageParams.setMargins(0, TINY_GAP, TINY_GAP, 0);
-
-//        Message m1 = new Message(true, "hey man this is me", null);
-////        Message m2 = new Message(true, "how you been", null);
-//        Message m3 = new Message(false, "not bad", getDrawable(R.drawable.prof_pic));
-////        Message m4 = new Message(false, "mostly j chillin haha. Been pretty caught up by school work esketiiiiiit. you know, same old same old this is a long message.", getDrawable(R.drawable.prof_pic));
-////        Message m5 = new Message(true, "aight good to know", null);
-//
-        chatBotGreeting = new Message(false, "Hey there! I'm Gates, Toomi's chat bot. " +
-                "We're looking for a 'real' person for you to talk to. Don't worry, you'll have complete anonymity. " +
-                "In the meantime, feel free to tell me what's on your mind!",
-                getDrawable(R.drawable.cutebot));
-
-        initializeMessages(new ArrayList<Message>());
-//
-//        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
 
         TwilioClient.getInstance(this).retrieveAccessTokenfromServer();
         // Set up socket stuff if person is a listener
@@ -122,23 +107,23 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeMessages(List<Message> priorMessages) {
-        if (priorMessages.isEmpty()) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            addMessage(chatBotGreeting);
-                        }
-                    });
-                }
-            }, 3000);
-        }
-        for (Message msg: priorMessages) {
-            addMessage(msg);
-        }
+    void scheduleChatBot() {
+        final Message chatBotGreeting = new Message(false, "Hey there! I'm Gates, Toomi's chat bot. " +
+                "We're looking for a 'real' person for you to talk to. Don't worry, you'll have complete anonymity. " +
+                "In the meantime, feel free to tell me what's on your mind!",
+                getDrawable(R.drawable.cutebot));
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        addMessage(chatBotGreeting);
+                    }
+                });
+            }
+        }, 3000);
     }
 
     public void addMessage(Message msg) {
@@ -167,6 +152,18 @@ public class ChatActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.chat_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_item_call:
+                startCall();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void showTalkRequestDialog(String name, Bitmap photo) {
@@ -213,4 +210,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void confirmConversation() {}
     private void cancelConversation() {}
+
+    // start a call
+    private void startCall() {}
 }

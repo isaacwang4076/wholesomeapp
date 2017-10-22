@@ -40,7 +40,7 @@ class ConversationFeedItem implements FeedItem {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 30, 0, 0);
+        params.setMargins(0, 0, 0, 30);
         v.setLayoutParams(params);
 
         ImageView imageView = (ImageView) v.findViewById(R.id.listenerImageView);

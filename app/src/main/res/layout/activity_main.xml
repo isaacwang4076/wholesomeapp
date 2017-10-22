@@ -60,7 +60,7 @@
         android:layout_below="@id/peopleHelpedTextView"
         android:layout_above="@id/buttonLayout"
         android:requiresFadingEdge="vertical"
-        android:fadingEdgeLength="5dp">
+        android:fadingEdgeLength="@dimen/small_gap">
         <LinearLayout
             android:id="@+id/feedLayout"
             android:layout_marginLeft="@dimen/medium_gap"

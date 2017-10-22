@@ -6,20 +6,16 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ChatActivity"
@@ -28,11 +24,22 @@
         <activity
             android:name=".ConversationsActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".StoryActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".StoryActivity"
+            android:parentActivityName=".MainActivity" />
 
-        <service android:name="com.twilio.client.TwilioClientService"
-            android:exported="false" android:stopWithTask="true"/>
+        <service
+            android:name="com.twilio.client.TwilioClientService"
+            android:exported="false"
+            android:stopWithTask="true" />
+
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

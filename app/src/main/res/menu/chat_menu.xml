@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_item_new_quote"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="same"
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/menu_item_new_quote2"
-        android:icon="@android:drawable/ic_menu_add"
+    <item android:id="@+id/menu_item_call"
+        android:icon="@drawable/phone"
         android:title="same"
         app:showAsAction="ifRoom"/>
 </menu>

@@ -34,7 +34,7 @@
             android:layout_marginLeft="@dimen/medium_gap"
             android:layout_marginRight="@dimen/medium_gap"
             android:gravity="top"
-            android:inputType="textCapSentences|textAutoCorrect"
+            android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
             />
     </RelativeLayout>
 </LinearLayout>

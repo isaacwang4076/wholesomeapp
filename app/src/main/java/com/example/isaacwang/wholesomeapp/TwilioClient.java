@@ -126,6 +126,9 @@ public class TwilioClient {
                 mCurrentChannel.getMessages().getLastMessages(50, new CallbackListener<List<Message>>() {
                     @Override
                     public void onSuccess(List<Message> messages) {
+                        if (messages.isEmpty()) {
+                            ((ChatActivity)mContext).scheduleChatBot();
+                        }
                         for (Message tMessage : messages) {
                             mMessages.add(tMessage);
                             Log.d(TAG, tMessage.getMessageBody());
