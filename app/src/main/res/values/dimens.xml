@@ -5,4 +5,5 @@
     <dimen name="smallish_gap">20dp</dimen>
     <dimen name="small_gap">10dp</dimen>
     <dimen name="medium_size">15sp</dimen>
+    <dimen name="large_size">20sp</dimen>
 </resources>
