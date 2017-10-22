@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by ericzhang on 10/21/17.
@@ -33,8 +34,16 @@ public class Network {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<FeedItem> feedList = new ArrayList<FeedItem>();
                 for (DataSnapshot feedSnapshot : dataSnapshot.getChildren()) {
-                    FeedItem feedItem = feedSnapshot.getValue(ConversationFeedItem.class);
-                    feedList.add(feedItem);
+                    if ((Integer) feedSnapshot.child("type").getValue() == ConversationFeedItem.TYPE) {
+                        FeedItem feedItem = feedSnapshot.getValue(ConversationFeedItem.class);
+                        feedList.add(feedItem);
+                    }
+                    else if ((Integer) feedSnapshot.child("type").getValue() == StoryFeedItem.TYPE) {
+                        FeedItem feedItem = feedSnapshot.getValue(StoryFeedItem.class);
+                        feedList.add(feedItem);
+                    } else {
+                        System.err.println("we fucked up unrecognized feed item type");
+                    }
                 }
                 System.out.println("Feed list: " + feedList);
             }

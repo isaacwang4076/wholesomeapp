@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 public class ConversationSummary {
 
-    private static final String ANONYMOUS = "Anonymous";
-
     private final Drawable otherPhoto;
     private final String otherName;
     private final String lastMessage;
@@ -24,7 +22,7 @@ public class ConversationSummary {
         if (otherName != null) {
             this.otherName = otherName;
         } else {
-            this.otherName = ANONYMOUS;
+            this.otherName = Utilities.ANONYMOUS;
         }
         this.lastMessage = lastMessage;
     }

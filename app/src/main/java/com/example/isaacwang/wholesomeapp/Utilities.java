@@ -10,6 +10,8 @@ import android.graphics.Matrix;
 
 public class Utilities {
 
+    static final String ANONYMOUS = "Anonymous";
+
     static final Bitmap getScaledAndRotatedBitmap(Bitmap original, int width, int height) {
         Matrix matrix = new Matrix();
 

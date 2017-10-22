@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
         FeedItem testFeedItem2 = new ConversationFeedItem("Alvin");
         FeedItem testFeedItem3 = new ConversationFeedItem("Rick");
 
+        FeedItem storyFeedItem = new StoryFeedItem("Jeremy", "so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and ");
+        FeedItem storyFeedItem2 = new StoryFeedItem("Jeeemt", "so I was playing melee and so I wasa,djshfkjashd playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and ");
+
+        feedLayout.addView(storyFeedItem.getView(this));
+        feedLayout.addView(storyFeedItem2.getView(this));
+
+
         //Network.addToFeed(testFeedItem1);
 
         // attach FeedDatabase listener
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 FeedItem feedItem = dataSnapshot.getValue(ConversationFeedItem.class);
-                feedLayout.addView(feedItem.getView(context, feedLayout), 0);
+                feedLayout.addView(feedItem.getView(context), 0);
                 peopleHelpedTextView.setText(feedLayout.getChildCount() + " people were heard today.");
             }
             @Override

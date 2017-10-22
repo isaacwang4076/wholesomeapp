@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/feed_item_border">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/listenerImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/small_gap"
+            android:src="@drawable/anonymous"/>
+
+        <TextView
+            android:id="@+id/posterNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anonymous"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/medium_size"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" posted a message"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/medium_size"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/storyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/smallish_gap"
+        android:layout_marginRight="@dimen/smallish_gap"
+        android:layout_marginBottom="@dimen/smallish_gap"
+
+        android:text="When I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blah"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/medium_size"/>
+
+</LinearLayout>
