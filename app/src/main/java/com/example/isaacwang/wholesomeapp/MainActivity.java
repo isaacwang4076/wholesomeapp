@@ -135,10 +135,8 @@ public class MainActivity extends AppCompatActivity {
     public void listenButtonOnClick(View v) {
         if (listening) {
             showStopListeningDialog();
-            listenButton.setText("I want to listen");
         } else {
             showStartListeningDialog();
-            listenButton.setText("Stop listening");
         }
     }
 
@@ -260,11 +258,13 @@ public class MainActivity extends AppCompatActivity {
         };
 
         Network.downToListen(onNewTalker);
+        listenButton.setText("Stop listening");
     }
 
     // TODO: Eric - this user has unregistered as a listener
     private void removeListener() {
         Network.stopDownToListen();
+        listenButton.setText("I want to listen");
     }
 
     /******************************************************************************************************/

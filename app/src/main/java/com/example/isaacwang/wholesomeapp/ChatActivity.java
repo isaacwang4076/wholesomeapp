@@ -62,20 +62,20 @@ public class ChatActivity extends AppCompatActivity {
         outgoingMessageParams.gravity = Gravity.RIGHT;
         outgoingMessageParams.setMargins(0, TINY_GAP, TINY_GAP, 0);
 
-        Message m1 = new Message(true, "hey man this is me", null);
-//        Message m2 = new Message(true, "how you been", null);
-        Message m3 = new Message(false, "not bad", getDrawable(R.drawable.prof_pic));
-//        Message m4 = new Message(false, "mostly j chillin haha. Been pretty caught up by school work esketiiiiiit. you know, same old same old this is a long message.", getDrawable(R.drawable.prof_pic));
-//        Message m5 = new Message(true, "aight good to know", null);
-
-        chatBotGreeting = new Message(false, "Hey there! I'm Gates, Toomi's chat bot. " +
-                "We're looking for a 'real' person for you to talk to. Don't worry, you'll have complete anonymity. " +
-                "In the meantime, feel free to tell me what's on your mind!",
-                getDrawable(R.drawable.cutebot));
-
-        initializeMessages(Arrays.asList(m1, m1, m1, m1, m1, m3, m1, m3, m1, m3, m1, m3, m3, m1, m1, m1, m1, m1, m3, m1, m3, m1, m3, m1, m3, m3));
-
-        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
+//        Message m1 = new Message(true, "hey man this is me", null);
+////        Message m2 = new Message(true, "how you been", null);
+//        Message m3 = new Message(false, "not bad", getDrawable(R.drawable.prof_pic));
+////        Message m4 = new Message(false, "mostly j chillin haha. Been pretty caught up by school work esketiiiiiit. you know, same old same old this is a long message.", getDrawable(R.drawable.prof_pic));
+////        Message m5 = new Message(true, "aight good to know", null);
+//
+//        chatBotGreeting = new Message(false, "Hey there! I'm Gates, Toomi's chat bot. " +
+//                "We're looking for a 'real' person for you to talk to. Don't worry, you'll have complete anonymity. " +
+//                "In the meantime, feel free to tell me what's on your mind!",
+//                getDrawable(R.drawable.cutebot));
+//
+//        initializeMessages(Arrays.asList(m1, m1, m1, m1, m1, m3, m1, m3, m1, m3, m1, m3, m3, m1, m1, m1, m1, m1, m3, m1, m3, m1, m3, m1, m3, m3));
+//
+//        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
     }
 
     private void initializeMessages(List<Message> priorMessages) {
