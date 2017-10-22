@@ -123,7 +123,7 @@ public class TwilioClient {
             public void onSuccess() {
                 mCurrentChannel = channel;
                 Log.d(TAG, "Joined default channel");
-                mCurrentChannel.getMessages().getLastMessages(50, new CallbackListener<List<Message>>() {
+                mCurrentChannel.getMessages().getLastMessages(10, new CallbackListener<List<Message>>() {
                     @Override
                     public void onSuccess(List<Message> messages) {
                         if (messages.isEmpty()) {
