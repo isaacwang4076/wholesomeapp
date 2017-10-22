@@ -16,7 +16,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/medium_size"
         android:text="69 people were heard today."
-        android:textStyle="italic"
+        android:textStyle="bold|italic"
         android:layout_below="@id/appBar"
         android:visibility="invisible"/>
 

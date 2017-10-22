@@ -23,13 +23,11 @@ public class SplashActivity extends AppCompatActivity {
 
         final Context thisActivity = this;
 
-        View tagline = findViewById(R.id.tagline);
-        View logo = findViewById(R.id.logo);
+        View lel = findViewById(R.id.lel);
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         // Now Set your animation
-        logo.startAnimation(fadeInAnimation);
-        tagline.startAnimation(fadeInAnimation);
+        lel.startAnimation(fadeInAnimation);
 
         new Timer().schedule(new TimerTask() {
             @Override
