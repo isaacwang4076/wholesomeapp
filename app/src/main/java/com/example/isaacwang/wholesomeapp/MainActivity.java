@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -53,26 +54,26 @@ public class MainActivity extends AppCompatActivity {
 
         feedLayout = (LinearLayout) findViewById(R.id.feedLayout);
 
-        FeedItem testFeedItem1 = new ConversationFeedItem("Jason");
+        FeedItem testFeedItem1 = new ConversationFeedItem("asdf");
         FeedItem testFeedItem2 = new ConversationFeedItem("Alvin");
         FeedItem testFeedItem3 = new ConversationFeedItem("Rick");
-        initializeFeed(Arrays.asList(testFeedItem1, testFeedItem2, testFeedItem3));
 
-        Network.addToFeed(testFeedItem1);
-        Network.addToFeed(testFeedItem2);
-        Network.addToFeed(testFeedItem3);
+//        Network.addToFeed(testFeedItem1);
 
-        Network.feedDatabase.addValueEventListener(new ValueEventListener() {
+        // attach FeedDatabase listener
+        final Context context = this;
+        Network.feedDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<FeedItem> feedList = new ArrayList<FeedItem>();
-                for (DataSnapshot feedSnapshot : dataSnapshot.getChildren()) {
-                    FeedItem feedItem = feedSnapshot.getValue(ConversationFeedItem.class);
-                    feedList.add(feedItem);
-                }
-                System.out.println("Feed list: " + feedList);
-                initializeFeed(feedList);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                FeedItem feedItem = dataSnapshot.getValue(ConversationFeedItem.class);
+                feedLayout.addView(feedItem.getView(context, feedLayout), 0);
             }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, ChatActivity.class);
         i.putExtra("partner_name", "Jason");
         startActivity(i);
+
+        Network.wantToTalk();
+        System.out.println("want to talk");
     }
 
 
