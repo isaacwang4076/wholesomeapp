@@ -90,7 +90,7 @@ class StoryFeedItem implements FeedItem {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 30, 0, 0);
+        params.setMargins(0, 0, 0, 30);
         v.setLayoutParams(params);
 
         TextView posterNameTextView = (TextView) v.findViewById(R.id.posterNameTextView);

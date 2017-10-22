@@ -12,10 +12,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/listenerImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_margin="@dimen/small_gap"
-            android:src="@drawable/anonymous"/>
+            android:src="@drawable/silhouette"/>
 
         <TextView
             android:id="@+id/posterNameTextView"
