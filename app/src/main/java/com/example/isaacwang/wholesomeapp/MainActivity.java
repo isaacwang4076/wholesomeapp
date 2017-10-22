@@ -27,10 +27,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -39,7 +43,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    final boolean TEMP_LISTENING = true;
+    private boolean listening  = false;
     private LinearLayout feedLayout;
     private Dialog listenerDialog;
 
@@ -79,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button listenButton = (Button) findViewById(R.id.listenButton);
-        if (TEMP_LISTENING) {
+        if (listening) {
             listenButton.setText("Stop listening");
         }
 
-        showTalkRequestDialog("lmao");
+//        showTalkRequestDialog("lmao");
     }
 
     @Override
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     /******************************************************************************************************/
 
     public void listenButtonOnClick(View v) {
-        if (TEMP_LISTENING) {
+        if (listening) {
             showStopListeningDialog();
         } else {
             showStartListeningDialog();
@@ -138,13 +142,14 @@ public class MainActivity extends AppCompatActivity {
                         String name = et.getText().toString();
 
                         ImageView iv = (ImageView) listenerDialog.findViewById(R.id.photoImageView);
-                        Bitmap photo = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+                        Bitmap photo = iv.getDrawable() != null ? ((BitmapDrawable) iv.getDrawable()).getBitmap() : null;
 
                         // add the listener
                         addListener(name, photo);
 
                         // show a toast
                         Toast.makeText(getApplicationContext(), "You are now a listener!", Toast.LENGTH_LONG).show();
+                        listening = true;
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -208,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // show a toast
                         Toast.makeText(getApplicationContext(), "You are no longer a listener.", Toast.LENGTH_LONG).show();
+                        listening = false;
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -221,10 +227,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO: Eric - this user with this name and this photo has registered as a listener
-    private void addListener(String name, Bitmap photo) {}
+    private void addListener(String name, Bitmap photo) {
+        Emitter.Listener onNewTalker = new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                System.out.println("received want_to_listen");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("name: " + args[0]);
+                        showTalkRequestDialog((String) args[0]);
+                    }
+                });
+            }
+        };
+
+        Network.downToListen(onNewTalker);
+    }
 
     // TODO: Eric - this user has unregistered as a listener
-    private void removeListener() {}
+    private void removeListener() {
+        Network.stopDownToListen();
+    }
 
     /******************************************************************************************************/
     /************************************* RESPONDING TO TALK REQUEST *************************************/
@@ -255,8 +279,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void joinConversation(String talkerId) {}
+    private void joinConversation(String talkerId) {
+        Intent i = new Intent(this, ChatActivity.class);
+        i.putExtra("partner_name", "Jason");
+        startActivity(i);
+    }
 
-    private void declineConversation(String talkerId) {}
+    private void declineConversation(String talkerId) {
+        // nothing happens lel
+    }
 
 }

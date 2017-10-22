@@ -22,8 +22,9 @@ import java.util.ArrayList;
  */
 
 public class Network {
-    public static DatabaseReference rootDatabase = FirebaseDatabase.getInstance().getReference();
-    public static DatabaseReference feedDatabase = rootDatabase.child("FeedDatabase");
+    public static final String serverURL = "http://8606eebb.ngrok.io";
+    public static final DatabaseReference rootDatabase = FirebaseDatabase.getInstance().getReference();
+    public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabase");
 
     // temp, will move to activity controller
     public static void getFeed() {
@@ -48,45 +49,31 @@ public class Network {
     }
 
     public static Socket chatSocket;
-
-    public static void wantToTalk() {
+    static {
         try {
-            chatSocket = IO.socket("http://10.0.2.2:3000");
+            chatSocket = IO.socket(serverURL);
             chatSocket.connect();
-            chatSocket.emit("want_to_talk", "MY_ID");
         } catch(URISyntaxException e) {System.out.println("Failed to connect to socket");}
     }
 
-    public static void downToListen(Emitter.Listener listener) {
-        try {
-            chatSocket = IO.socket("10.0.2.2:3000");
-            chatSocket.connect();
-            chatSocket.emit("down_to_listen", "MY_ID");
+    public static void wantToTalk() {
+        if (chatSocket != null) {
+            chatSocket.emit("want_to_talk", "MY_ID");
+        }
+    }
 
-//            Emitter.Listener onNewTalker = new Emitter.Listener() {
-//                @Override
-//                public void call(final Object... args) {
-//                    activity.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            JSONObject data = (JSONObject) args[0];
-//                            String username;
-//                            String message;
-//                            try {
-//                                username = data.getString("username");
-//                                message = data.getString("message");
-//                            } catch (JSONException e) {
-//                                return;
-//                            }
-//
-//                            // add the message to view
-//                            addMessage(username, message);
-//                        }
-//                    });
-//                }
-//            };
-            chatSocket.on("want_to_listen", listener);
-        } catch(URISyntaxException e) {}
+    public static void downToListen(Emitter.Listener listener) {
+        if (chatSocket != null) {
+            chatSocket.emit("down_to_listen", "MY_ID");
+            chatSocket.on("want_to_talk", listener);
+            System.out.println("READY TO LISTEN");
+        }
+    }
+
+    public static void stopDownToListen() {
+        if (chatSocket != null) {
+            chatSocket.off("down_to_listen");
+        }
     }
 
 }
