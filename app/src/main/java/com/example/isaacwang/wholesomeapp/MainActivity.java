@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean listening  = false;
     private LinearLayout feedLayout;
+    private TextView peopleHelpedTextView;
+    private Button listenButton;
     private Dialog listenerDialog;
 
     @Override
@@ -57,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         feedLayout = (LinearLayout) findViewById(R.id.feedLayout);
+        peopleHelpedTextView = (TextView) findViewById(R.id.peopleHelpedTextView);
 
         FeedItem testFeedItem1 = new ConversationFeedItem("asdf");
         FeedItem testFeedItem2 = new ConversationFeedItem("Alvin");
         FeedItem testFeedItem3 = new ConversationFeedItem("Rick");
 
-//        Network.addToFeed(testFeedItem1);
+        //Network.addToFeed(testFeedItem1);
 
         // attach FeedDatabase listener
         final Context context = this;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 FeedItem feedItem = dataSnapshot.getValue(ConversationFeedItem.class);
                 feedLayout.addView(feedItem.getView(context, feedLayout), 0);
+                peopleHelpedTextView.setText(feedLayout.getChildCount() + " people were heard today.");
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -82,25 +87,35 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Button listenButton = (Button) findViewById(R.id.listenButton);
+        listenButton = (Button) findViewById(R.id.listenButton);
         if (listening) {
             listenButton.setText("Stop listening");
         }
-
-//        showTalkRequestDialog("lmao");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+
         return true;
     }
 
-    private void initializeFeed(List<FeedItem> feedItemList) {
-        for (FeedItem feedItem: feedItemList) {
-            feedLayout.addView(feedItem.getView(this, feedLayout));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_item_conversations:
+                goToConversations();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void goToConversations() {
+        Intent i = new Intent(this, ConversationsActivity.class);
+        startActivity(i);
     }
 
     public void startChat(View v) {
@@ -120,8 +135,10 @@ public class MainActivity extends AppCompatActivity {
     public void listenButtonOnClick(View v) {
         if (listening) {
             showStopListeningDialog();
+            listenButton.setText("I want to listen");
         } else {
             showStartListeningDialog();
+            listenButton.setText("Stop listening");
         }
     }
 

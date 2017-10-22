@@ -11,17 +11,13 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/messagesLayout"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
-        <LinearLayout
+            android:id="@+id/sendMessageLayout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:background="@color/gray"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:isScrollContainer="false">
 
             <EditText
                 android:id="@+id/message"
@@ -35,12 +31,30 @@
 
             <ImageButton
                 android:id="@+id/button"
-                android:src="@drawable/prof_pic"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow"
                 android:layout_margin="@dimen/small_gap"
                 android:layout_gravity="center"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:onClick="sendMessage"/>
         </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/sendMessageLayout"
+            android:layout_marginBottom="@dimen/small_gap">
+
+            <LinearLayout
+                android:id="@+id/messagesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+        
     </RelativeLayout>
 
 </LinearLayout>
