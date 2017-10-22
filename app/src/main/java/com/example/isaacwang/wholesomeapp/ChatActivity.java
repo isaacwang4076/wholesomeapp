@@ -3,8 +3,13 @@ package com.example.isaacwang.wholesomeapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -211,6 +216,12 @@ public class ChatActivity extends AppCompatActivity {
     private void confirmConversation() {}
     private void cancelConversation() {}
 
+    public void fsu() {}
+
     // start a call
-    private void startCall() {}
+    private void startCall() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:4157371230"));
+        startActivity(intent);
+    }
 }
