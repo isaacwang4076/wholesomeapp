@@ -44,7 +44,8 @@ class ConversationFeedItem implements FeedItem {
         v.setLayoutParams(params);
 
         ImageView imageView = (ImageView) v.findViewById(R.id.listenerImageView);
-        imageView.setImageResource(R.drawable.prof_pic);
+//        imageView.setImageResource(R.drawable.prof_pic);
+        imageView.setImageResource(Utilities.getProfResource(listener));
 
         TextView listenerTextView = (TextView) v.findViewById(R.id.listenerTextView);
         listenerTextView.setText(listener);

@@ -112,21 +112,21 @@ public class Network {
     // emits down_to_listen and waits for want_to_talk -> calls listener.call()
     public static void downToListen(Emitter.Listener listener) {
         if (chatSocket != null) {
-            chatSocket.emit("down_to_listen", "listenerId"); // doesn't do anything
+            chatSocket.emit("down_to_listen"); // doesn't do anything
             chatSocket.on("want_to_talk", listener);
             System.out.println("READY TO LISTEN");
         }
     }
 
-    public static void confirmTalk(String talkerId, String myId) {
+    public static void confirmTalk(String talkerId, String listenerId) {
         if (chatSocket != null) {
             HashMap<String, String> map = new HashMap<>();
             map.put("talkerId", talkerId);
-            map.put("listenerId", myId);
+            map.put("listenerId", listenerId);
             chatSocket.emit("confirm_talk", new JSONObject(map));
 
             // add to feed
-            ConversationFeedItem conversationFeedItem = new ConversationFeedItem(myId);
+            ConversationFeedItem conversationFeedItem = new ConversationFeedItem(listenerId);
             addToFeed(conversationFeedItem);
         }
     }

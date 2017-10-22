@@ -251,16 +251,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO: Eric - this user with this name and this photo has registered as a listener
-    private void addListener(String name, Bitmap photo) {
+    private void addListener(final String name, Bitmap photo) {
         Emitter.Listener onNewTalker = new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                System.out.println("received want_to_listen");
+                System.out.println("received want_to_talk");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         System.out.println("name: " + args[0]);
-                        showTalkRequestDialog((String) args[0]);
+                        showTalkRequestDialog((String) args[0], name);
                     }
                 });
             }
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
     /************************************* RESPONDING TO TALK REQUEST *************************************/
     /******************************************************************************************************/
 
-    private void showTalkRequestDialog(final String talkerId) {
+    private void showTalkRequestDialog(final String talkerId, final String listenerId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         // Get the layout inflater
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes, I'm free", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Network.confirmTalk(talkerId, "listenerId"); // emit confirm_talk with talkerId and listenerId
+                        Network.confirmTalk(talkerId, listenerId); // emit confirm_talk with talkerId and listenerId
                         Network.stopDownToListen(); // rm listener so no more alerts on future want_to_talk's
                         joinConversation(talkerId);
                     }
@@ -307,9 +307,10 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    // only for listener
     private void joinConversation(String talkerId) {
         Intent i = new Intent(this, ChatActivity.class);
-        i.putExtra("partner_name", "Jason");
+        i.putExtra("partner_name", "Anonymous");
         startActivity(i);
     }
 
