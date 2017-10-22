@@ -32,6 +32,15 @@
         android:textSize="@dimen/medium_size"
         android:hint="First Name"/>
 
+    <EditText
+        android:id="@+id/numberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_gap"
+        android:layout_marginRight="@dimen/small_gap"
+        android:textSize="@dimen/medium_size"
+        android:hint="Phone number (optional)"/>
+
     <ImageView
         android:id="@+id/photoImageView"
         android:layout_width="wrap_content"

@@ -20,8 +20,8 @@ import java.util.List;
  */
 
 public class TwilioClient {
-    private final static String SERVER_TOKEN_URL = "https://88596722.ngrok.io/token";
-//    private final static String SERVER_TOKEN_URL = Network.serverURL + "/token";
+//    private final static String SERVER_TOKEN_URL = "https://88596722.ngrok.io/token";
+    private final static String SERVER_TOKEN_URL = Network.serverURL + "/token";
     private final static String DEFAULT_CHANNEL_NAME = "general";
     private final static String TAG = "TwilioChat";
 

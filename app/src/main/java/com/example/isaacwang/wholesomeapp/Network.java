@@ -110,9 +110,12 @@ public class Network {
     }
 
     // emits down_to_listen and waits for want_to_talk -> calls listener.call()
-    public static void downToListen(Emitter.Listener listener) {
+    public static void downToListen(Emitter.Listener listener, String name, String phoneNumber) {
         if (chatSocket != null) {
-            chatSocket.emit("down_to_listen"); // doesn't do anything
+            HashMap<String, String> map = new HashMap<>();
+            map.put("number", phoneNumber);
+            map.put("listenerId", name);
+            chatSocket.emit("down_to_listen", new JSONObject(map));
             chatSocket.on("want_to_talk", listener);
             System.out.println("READY TO LISTEN");
         }

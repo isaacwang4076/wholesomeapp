@@ -177,11 +177,14 @@ public class MainActivity extends AppCompatActivity {
                         EditText et = (EditText) listenerDialog.findViewById(R.id.nameEditText);
                         String name = et.getText().toString();
 
+                        EditText phoneNumberEt = (EditText) listenerDialog.findViewById(R.id.numberEditText);
+                        String phoneNumber = phoneNumberEt.getText().toString();
+
                         ImageView iv = (ImageView) listenerDialog.findViewById(R.id.photoImageView);
                         Bitmap photo = iv.getDrawable() != null ? ((BitmapDrawable) iv.getDrawable()).getBitmap() : null;
 
                         // add the listener
-                        addListener(name, photo);
+                        addListener(name, photo, phoneNumber);
 
                         // show a toast
                         Toast.makeText(getApplicationContext(), "You are now a listener!", Toast.LENGTH_LONG).show();
@@ -263,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO: Eric - this user with this name and this photo has registered as a listener
-    private void addListener(final String name, Bitmap photo) {
+    private void addListener(final String name, Bitmap photo, final String phoneNumber) {
         Emitter.Listener onNewTalker = new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
@@ -278,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Network.downToListen(onNewTalker);
+        Network.downToListen(onNewTalker, name, phoneNumber);
         listenButton.setText("Stop listening");
     }
 
