@@ -131,10 +131,9 @@ public class MainActivity extends AppCompatActivity {
     public void startChat(View v) {
         Intent i = new Intent(this, ChatActivity.class);
         i.putExtra("partner_name", "Jason");
+        i.putExtra("is_talker", true);
         startActivity(i);
 
-        Network.wantToTalk();
-        System.out.println("want to talk");
     }
 
 
@@ -293,6 +292,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes, I'm free", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Network.confirmTalk(talkerId, "listenerId"); // emit confirm_talk with talkerId and listenerId
+                        Network.stopDownToListen(); // rm listener so no more alerts on future want_to_talk's
                         joinConversation(talkerId);
                     }
                 })

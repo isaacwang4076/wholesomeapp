@@ -19,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.nkzawa.emitter.Emitter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +83,37 @@ public class ChatActivity extends AppCompatActivity {
 //        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
 
         TwilioClient.getInstance(this).retrieveAccessTokenfromServer();
+        // Set up socket stuff if person is a listener
+        // When confirm_talk is received, check if talkerId == my id, and show listener's info if so
+        if (getIntent().getBooleanExtra("is_talker", false)) {
+            Emitter.Listener onListener = new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    System.out.println("received confirm_talk");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // bit jank, there's a better way with socket logic
+                            JSONObject data = (JSONObject) args[0];
+                            String talkerId;
+                            String listenerId;
+                            try {
+                                talkerId = data.getString("talkerId");
+                                listenerId = data.getString("listenerId");
+                            } catch (JSONException e) {
+                                return;
+                            }
+                            if (talkerId.equals("talkerId")) {
+                                System.out.println("talkerId: " + talkerId);
+                                showTalkRequestDialog(listenerId, ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
+                            }
+                        }
+                    });
+                }
+            };
+            Network.wantToTalk(onListener);
+            System.out.println("emitting want to talk");
+        }
     }
 
     private void initializeMessages(List<Message> priorMessages) {

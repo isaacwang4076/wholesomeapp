@@ -19,6 +19,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.SynchronousQueue;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ericzhang on 10/21/17.
@@ -98,17 +100,30 @@ public class Network {
         } catch(URISyntaxException e) {System.out.println("Failed to connect to socket");}
     }
 
-    public static void wantToTalk() {
+    // emits want_to_talk and waits for confirm_talk (w/ matching id) -> calls listener.call()
+    public static void wantToTalk(Emitter.Listener listener) {
         if (chatSocket != null) {
-            chatSocket.emit("want_to_talk", "MY_ID");
+            chatSocket.emit("want_to_talk", "talkerId");
+            chatSocket.on("confirm_talk", listener);
+            System.out.println("WAITING FOR LISTENER TO CONFIRM TALK");
         }
     }
 
+    // emits down_to_listen and waits for want_to_talk -> calls listener.call()
     public static void downToListen(Emitter.Listener listener) {
         if (chatSocket != null) {
-            chatSocket.emit("down_to_listen", "MY_ID");
+            chatSocket.emit("down_to_listen", "listenerId"); // doesn't do anything
             chatSocket.on("want_to_talk", listener);
             System.out.println("READY TO LISTEN");
+        }
+    }
+
+    public static void confirmTalk(String talkerId, String myId) {
+        if (chatSocket != null) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("talkerId", talkerId);
+            map.put("listenerId", myId);
+            chatSocket.emit("confirm_talk", new JSONObject(map));
         }
     }
 
