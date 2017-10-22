@@ -26,6 +26,9 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ConversationsActivity"
             android:parentActivityName=".MainActivity"></activity>
+
+        <service android:name="com.twilio.client.TwilioClientService"
+            android:exported="false" android:stopWithTask="true"/>
     </application>
 
 </manifest>

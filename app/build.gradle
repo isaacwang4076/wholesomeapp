@@ -32,6 +32,23 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.4.2'
     compile 'com.github.nkzawa:socket.io-client:0.3.0'
     testCompile 'junit:junit:4.12'
+    compile "com.twilio:chat-android:2.0.1" // Twilio Client Android SDK
+    compile 'com.koushikdutta.ion:ion:2.1.7' // Asynch networking
+}
+
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 

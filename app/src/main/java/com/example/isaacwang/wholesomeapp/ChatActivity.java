@@ -76,6 +76,8 @@ public class ChatActivity extends AppCompatActivity {
        initializeMessages(new ArrayList<Message>());
 //
 //        showTalkRequestDialog("Yams", ((BitmapDrawable) getDrawable(R.drawable.prof_pic)).getBitmap());
+
+        TwilioClient.getInstance(this).retrieveAccessTokenfromServer();
     }
 
     private void initializeMessages(List<Message> priorMessages) {
@@ -87,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    private void addMessage(Message msg) {
+    public void addMessage(Message msg) {
         View messageContainer;
 
         if (msg.outgoing) {

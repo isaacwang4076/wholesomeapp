@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">toomi</string>
+    <string name="error_retrieving_access_token">Error retrieving access token from the server.</string>
 </resources>
