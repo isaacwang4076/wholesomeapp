@@ -24,7 +24,10 @@
             android:name=".ChatActivity"
             android:parentActivityName=".ConversationsActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ConversationsActivity"
+        <activity
+            android:name=".ConversationsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".StoryActivity"
             android:parentActivityName=".MainActivity"></activity>
 
         <service android:name="com.twilio.client.TwilioClientService"

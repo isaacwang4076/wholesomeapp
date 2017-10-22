@@ -42,9 +42,27 @@
         android:layout_marginLeft="@dimen/smallish_gap"
         android:layout_marginRight="@dimen/smallish_gap"
         android:layout_marginBottom="@dimen/smallish_gap"
-
-        android:text="When I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blahWhen I was little I blah blah blah blah blah"
+        android:text="lel"
         android:textColor="@color/textColor"
         android:textSize="@dimen/medium_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/likeButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/like_empty"/>
+        <TextView
+            android:id="@+id/numLikes"
+            android:layout_margin="@dimen/small_gap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"/>
+    </LinearLayout>
 
 </LinearLayout>

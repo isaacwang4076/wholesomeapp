@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_item_story"
+        android:icon="@drawable/pencil"
+        android:title="same"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/menu_item_conversations"
         android:icon="@drawable/speech_bubble"
         android:title="same"

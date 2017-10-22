@@ -62,27 +62,22 @@ public class MainActivity extends AppCompatActivity {
         feedLayout = (LinearLayout) findViewById(R.id.feedLayout);
         peopleHelpedTextView = (TextView) findViewById(R.id.peopleHelpedTextView);
 
-        FeedItem testFeedItem1 = new ConversationFeedItem("asdf");
-        FeedItem testFeedItem2 = new ConversationFeedItem("Alvin");
-        FeedItem testFeedItem3 = new ConversationFeedItem("Rick");
-
-        FeedItem storyFeedItem = new StoryFeedItem("Jeremy", "so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and ");
-        FeedItem storyFeedItem2 = new StoryFeedItem("Jeeemt", "so I was playing melee and so I wasa,djshfkjashd playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and so I was playing melee and ");
-
-        feedLayout.addView(storyFeedItem.getView(this));
-        feedLayout.addView(storyFeedItem2.getView(this));
-
-
-        //Network.addToFeed(testFeedItem1);
-
         // attach FeedDatabase listener
         final Context context = this;
         Network.feedDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                FeedItem feedItem = dataSnapshot.getValue(ConversationFeedItem.class);
-                feedLayout.addView(feedItem.getView(context), 0);
                 peopleHelpedTextView.setText(feedLayout.getChildCount() + " people were heard today.");
+
+                FeedItem feedItem = null;
+                if ((Long) dataSnapshot.child("type").getValue() == ConversationFeedItem.TYPE) {
+                    feedItem = dataSnapshot.getValue(ConversationFeedItem.class);
+                }
+                else if ((Long) dataSnapshot.child("type").getValue() == StoryFeedItem.TYPE) {
+                    feedItem = dataSnapshot.getValue(StoryFeedItem.class);
+                }
+                feedLayout.addView(feedItem.getView(context), 0);
+
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -115,13 +110,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_item_conversations:
                 goToConversations();
                 return true;
+            case R.id.menu_item_story:
+                goToStoryActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void goToConversations() {
+    private void goToConversations() {
         Intent i = new Intent(this, ConversationsActivity.class);
+        startActivity(i);
+    }
+
+    private void goToStoryActivity() {
+        Intent i = new Intent(this, StoryActivity.class);
         startActivity(i);
     }
 

@@ -12,7 +12,7 @@ public class ConversationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.appBar);
-        myToolbar.setTitle(getResources().getString(R.string.app_name));
+        myToolbar.setTitle("Conversations");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

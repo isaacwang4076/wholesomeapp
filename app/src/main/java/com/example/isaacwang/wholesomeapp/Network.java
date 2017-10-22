@@ -9,6 +9,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -25,7 +27,10 @@ import java.util.concurrent.SynchronousQueue;
 public class Network {
     public static final String serverURL = "http://8606eebb.ngrok.io";
     public static final DatabaseReference rootDatabase = FirebaseDatabase.getInstance().getReference();
-    public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabase");
+    //public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabase");
+    public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabaseIsaac");
+
+
 
     // temp, will move to activity controller
     public static void getFeed() {
@@ -34,16 +39,8 @@ public class Network {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<FeedItem> feedList = new ArrayList<FeedItem>();
                 for (DataSnapshot feedSnapshot : dataSnapshot.getChildren()) {
-                    if ((Integer) feedSnapshot.child("type").getValue() == ConversationFeedItem.TYPE) {
-                        FeedItem feedItem = feedSnapshot.getValue(ConversationFeedItem.class);
-                        feedList.add(feedItem);
-                    }
-                    else if ((Integer) feedSnapshot.child("type").getValue() == StoryFeedItem.TYPE) {
-                        FeedItem feedItem = feedSnapshot.getValue(StoryFeedItem.class);
-                        feedList.add(feedItem);
-                    } else {
-                        System.err.println("we fucked up unrecognized feed item type");
-                    }
+                    FeedItem feedItem = feedSnapshot.getValue(ConversationFeedItem.class);
+                    feedList.add(feedItem);
                 }
                 System.out.println("Feed list: " + feedList);
             }
@@ -55,6 +52,42 @@ public class Network {
     public static void addToFeed(FeedItem feedItem) {
         System.out.println("FEED ITEM: " + feedItem);
         feedDatabase.push().setValue(feedItem);
+    }
+
+    public static void bumpItUpBois(final String postId) {
+        feedDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot feedSnapshot : dataSnapshot.getChildren()) {
+                    if (feedSnapshot.hasChild("ID") && feedSnapshot.child("ID").getValue() == postId) {
+                        feedSnapshot.child("likes").getRef().runTransaction(new Transaction.Handler() {
+                            @Override
+                            public Transaction.Result doTransaction(MutableData mutableData) {
+                                Long value = mutableData.getValue(Long.class);
+                                if (value == null) {
+                                    mutableData.setValue(1);
+                                }
+                                else {
+                                    mutableData.setValue(value + 1);
+                                }
+
+                                return Transaction.success(mutableData);
+                            }
+
+                            @Override
+                            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static Socket chatSocket;
