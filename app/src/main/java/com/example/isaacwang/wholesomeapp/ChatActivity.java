@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,15 +39,24 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.twilio.chat.CallbackListener;
+import com.twilio.chat.Message;
+
 public class ChatActivity extends AppCompatActivity {
     
     private static final int TINY_GAP = 15;
+    private ImageButton mSendButton;
+    private EditText mSendText;
 
     LinearLayout messagesLayout;
 
     LayoutInflater inflater;
     LinearLayout.LayoutParams incomingMessageParams;
     LinearLayout.LayoutParams outgoingMessageParams;
+
+    private final static String TAG = "TwilioChat";
+
+    TwilioClient mTClient = TwilioClient.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +87,9 @@ public class ChatActivity extends AppCompatActivity {
         outgoingMessageParams.gravity = Gravity.RIGHT;
         outgoingMessageParams.setMargins(0, TINY_GAP, TINY_GAP, 0);
 
-        TwilioClient.getInstance(this).retrieveAccessTokenfromServer();
+        // get access token and get messages
+        mTClient.retrieveAccessTokenfromServer();
+
         // Set up socket stuff if person is a listener
         // When confirm_talk is received, check if talkerId == my id, and show listener's info if so
         final Context context = this;
@@ -110,10 +123,31 @@ public class ChatActivity extends AppCompatActivity {
             Network.wantToTalk(onListener);
             System.out.println("emitting want to talk");
         }
+
+        mSendText = (EditText)findViewById(R.id.sendMessageBox);
+
+        mSendButton = (ImageButton)findViewById(R.id.sendButton);
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = mSendText.getText().toString();
+                if (mTClient.isLoaded() && !message.isEmpty()) {
+                    Message.Options tMessage = Message.options();
+                    mTClient.getChannel().getMessages().sendMessage(tMessage.withBody(message), new CallbackListener<Message>() {
+                        @Override
+                        public void onSuccess(Message message) {
+                            mSendText.setText("");
+                            Log.d(TAG, "Message Sent: " + message);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     void scheduleChatBot() {
-        final Message chatBotGreeting = new Message(false, "Hey there! I'm Gates, Toomi's chat bot. " +
+        final WhMessage chatBotGreeting = new WhMessage(false, "Hey there! I'm Gates, Toomi's chat bot. " +
                 "We're looking for a 'real' person for you to talk to. Don't worry, you'll have complete anonymity. " +
                 "In the meantime, feel free to tell me what's on your mind!",
                 getDrawable(R.drawable.cutebot));
@@ -131,7 +165,7 @@ public class ChatActivity extends AppCompatActivity {
         }, 3000);
     }
 
-    public void addMessage(Message msg) {
+    public void addMessage(WhMessage msg) {
         View messageContainer;
 
         if (msg.outgoing) {
@@ -203,14 +237,6 @@ public class ChatActivity extends AppCompatActivity {
         Dialog dialog = builder.create();
 
         dialog.show();
-    }
-
-    public void sendMessage(View v) {
-        EditText et = (EditText) findViewById(R.id.message);
-        String message = et.getText().toString();
-        et.setText("");
-
-        // TODO: send this message
     }
 
     private void confirmConversation() {}

@@ -29,6 +29,8 @@ public class TwilioClient {
     private static ChatClient mChatClient;
     private static Channel mCurrentChannel;
     private static ArrayList<Message> mMessages = new ArrayList<>();
+    private static String deviceId;
+    private static boolean loaded = false;
 
     private static final TwilioClient ourInstance = new TwilioClient();
 
@@ -40,10 +42,19 @@ public class TwilioClient {
     private TwilioClient() {
     }
 
-    public static void retrieveAccessTokenfromServer() {
-        String deviceId = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        String tokenURL = SERVER_TOKEN_URL + "?device=" + deviceId;
+    public static boolean isLoaded() {
+        return loaded;
+    }
+
+    public static Channel getChannel() {
+        return mCurrentChannel;
+    }
+
+    public static void retrieveAccessTokenfromServer() {
+        deviceId = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        String tokenURL = SERVER_TOKEN_URL + "/" + deviceId;
 
         Ion.with(mContext)
                 .load(tokenURL)
@@ -130,9 +141,10 @@ public class TwilioClient {
                         if (messages.isEmpty()) {
                             ((ChatActivity)mContext).scheduleChatBot();
                         }
+                        loaded = true;
                         for (Message tMessage : messages) {
                             mMessages.add(tMessage);
-                            Log.d(TAG, tMessage.getMessageBody());
+                            Log.d(TAG, tMessage.getMessageBody() + "auth: " + tMessage.getAuthor());
                             ((ChatActivity)mContext).addMessage(toMessage(tMessage));
                         }
                     }
@@ -148,9 +160,9 @@ public class TwilioClient {
         });
     }
 
-    private static com.example.isaacwang.wholesomeapp.Message toMessage(Message tMessage) {
-        com.example.isaacwang.wholesomeapp.Message wMessage;
-        wMessage = new com.example.isaacwang.wholesomeapp.Message(false,
+    private static WhMessage toMessage(Message tMessage) {
+        WhMessage wMessage;
+        wMessage = new WhMessage((tMessage.getAuthor().equals(deviceId)),
                 tMessage.getMessageBody(), mContext.getDrawable(R.drawable.prof_pic));
 
         return wMessage;
@@ -159,7 +171,7 @@ public class TwilioClient {
     private static ChannelListener mDefaultChannelListener = new ChannelListener() {
 
         @Override
-        public void onMessageAdded(final com.twilio.chat.Message message) {
+        public void onMessageAdded(final Message message) {
             Log.d(TAG, "Message added");
 
             ((Activity)mContext).runOnUiThread(new Runnable() {

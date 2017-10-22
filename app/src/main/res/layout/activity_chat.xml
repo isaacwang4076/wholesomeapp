@@ -20,7 +20,7 @@
             android:isScrollContainer="false">
 
             <EditText
-                android:id="@+id/message"
+                android:id="@+id/sendMessageBox"
                 android:layout_weight=".95"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -30,7 +30,7 @@
                 android:textSize="@dimen/medium_size"/>
 
             <ImageButton
-                android:id="@+id/button"
+                android:id="@+id/sendButton"
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow"
                 android:layout_margin="@dimen/small_gap"
@@ -38,7 +38,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@android:color/transparent"
-                android:onClick="sendMessage"/>
+                android:clickable="true" />
         </LinearLayout>
 
         <ScrollView
