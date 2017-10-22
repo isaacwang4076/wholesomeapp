@@ -27,7 +27,7 @@ import java.util.Map;
  */
 
 public class Network {
-    public static final String serverURL = "http://8606eebb.ngrok.io";
+    public static final String serverURL = "https://wholesome-bois.herokuapp.com/";
     public static final DatabaseReference rootDatabase = FirebaseDatabase.getInstance().getReference();
     //public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabase");
     public static final DatabaseReference feedDatabase = rootDatabase.child("FeedDatabaseIsaac");
